@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Sokoban3D Levels/Sokoban3D_Level01.unity
+- path: Assets/Scenes/SpaceRaceECS.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
