@@ -4,39 +4,30 @@ using UnityEngine;
 
 public class MyGridSystem : MonoBehaviour
 {
-    public static MyGridSystem instance;
-    public int rows;
-    public int cols;
+    // TODO column row yerine sizeX, sizeY tercih ediyorum daha az karisiyor ++
+    public int sizeY;
+    public int sizeX;
     public float gridSize = 1;
     public MyGrid[,] myGrid = new MyGrid[0, 0];
-    float Xoffset, Yoffset;
+    float xOffset, yOffset; // TODO xOffset, yOffset ya da Vector2 offset; ++
 
     private void Awake()
     {
-        instance = this;
-        myGrid = new MyGrid[rows, cols];
-        Xoffset = transform.position.x - ((cols / 2) * gridSize);
-        Yoffset = transform.position.y - ((rows / 2) * gridSize);
+        myGrid = new MyGrid[sizeY, sizeX];
+        xOffset = transform.position.x - ((sizeX / 2) * gridSize);
+        yOffset = transform.position.y - ((sizeY / 2) * gridSize);
         GenerateGridMap();
     }
 
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    // TODO bos fonksyonlar++
 
     public void GenerateGridMap()
     {
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < sizeY; i++)
         {
-            for (int k = 0; k < cols; k++)
+            for (int k = 0; k < sizeX; k++)
             {
-                myGrid[i, k] = new MyGrid(Xoffset + (k*gridSize) + gridSize / 2, Yoffset + (i*gridSize) + gridSize / 2, new Vector2(k, i));
+                myGrid[i, k] = new MyGrid(xOffset + (k*gridSize) + gridSize / 2, yOffset + (i*gridSize) + gridSize / 2);
             }
         }
 
@@ -53,22 +44,22 @@ public class MyGridSystem : MonoBehaviour
 
     public MyGrid GetCurrentGridInfinitly(ref Vector2 pos)
     {
-        if (pos.x >= cols)
+        if (pos.x >= sizeX)
         {
-            pos.x = pos.x % cols;
+            pos.x -= sizeX; // TODO float ve mod operatoru ne donuyor inan bilmiyorum ++
         }
         else if (pos.x < 0)
         {
-            pos.x += cols;
+            pos.x += sizeX;
         }
 
-        if (pos.y >= rows)
+        if (pos.y >= sizeY)
         {
-            pos.y = pos.y % rows;
+            pos.y -= sizeY;
         }
         else if (pos.y < 0)
         {
-            pos.y += rows;
+            pos.y += sizeY;
         }
 
         MyGrid newGrid = myGrid[(int)pos.y, (int)pos.x];
@@ -78,22 +69,22 @@ public class MyGridSystem : MonoBehaviour
 
     public void PlaceTheObjToGrid(Vector2 pos, GameObject obj,string tag)
     {
-        if (pos.x >= cols)
+        if (pos.x >= sizeX)
         {
-            pos.x = pos.x % cols;
+            pos.x -= sizeX; // TODO float ve mod operatoru ne donuyor inan bilmiyorum ++
         }
         else if (pos.x < 0)
         {
-            pos.x += cols;
+            pos.x += sizeX;
         }
 
-        if (pos.y >= rows)
+        if (pos.y >= sizeY)
         {
-            pos.y = pos.y % rows;
+            pos.y -= sizeY;
         }
         else if (pos.y < 0)
         {
-            pos.y += rows;
+            pos.y += sizeY;
         }
 
         MyGrid newGrid = myGrid[(int)pos.y, (int)pos.x];
@@ -105,22 +96,22 @@ public class MyGridSystem : MonoBehaviour
 
     public void RemoveTheObjectFromGrid(Vector2 pos)
     {
-        if (pos.x >= cols)
+        if (pos.x >= sizeX)
         {
-            pos.x = pos.x % cols;
+            pos.x -= sizeX; // TODO float ve mod operatoru ne donuyor inan bilmiyorum ++
         }
         else if (pos.x < 0)
         {
-            pos.x += cols;
+            pos.x += sizeX;
         }
 
-        if (pos.y >= rows)
+        if (pos.y >= sizeY)
         {
-            pos.y = pos.y % rows;
+            pos.y -= sizeY;
         }
         else if (pos.y < 0)
         {
-            pos.y += rows;
+            pos.y += sizeY;
         }
 
         MyGrid newGrid = myGrid[(int)pos.y, (int)pos.x];
@@ -131,7 +122,7 @@ public class MyGridSystem : MonoBehaviour
     public Vector2 WorldPositionToGrid(Vector2 worldPos)
     {
         
-        Vector2 gridPos = new Vector2((int)((worldPos.x - (Xoffset) - gridSize / 2)/gridSize), (int)((worldPos.y - (Yoffset) - gridSize / 2))/gridSize);
+        Vector2 gridPos = new Vector2((int)((worldPos.x - (xOffset) - gridSize / 2)/gridSize), (int)((worldPos.y - (yOffset) - gridSize / 2))/gridSize);
         return gridPos;
     }
 
@@ -139,16 +130,16 @@ public class MyGridSystem : MonoBehaviour
     private void OnDrawGizmos()
     {
 
-        Xoffset = transform.position.x - ((cols / 2) * gridSize);
-        Yoffset = transform.position.y - ((rows / 2) * gridSize);
+        xOffset = transform.position.x - ((sizeX / 2) * gridSize);
+        yOffset = transform.position.y - ((sizeY / 2) * gridSize);
 
 
-        for (int i = 0; i <= rows; i++)
+        for (int i = 0; i <= sizeY; i++)
         {
-            for (int k = 0; k <= cols; k++)
+            for (int k = 0; k <= sizeX; k++)
             {
-                Debug.DrawLine(new Vector2(Xoffset, Yoffset + (i * gridSize)), new Vector2(Xoffset + (cols * gridSize), Yoffset + (i * gridSize)));
-                Debug.DrawLine(new Vector2(Xoffset + (k * gridSize), Yoffset), new Vector2(Xoffset + (k * gridSize), Yoffset + (rows * gridSize)));
+                Debug.DrawLine(new Vector2(xOffset, yOffset + (i * gridSize)), new Vector2(xOffset + (sizeX * gridSize), yOffset + (i * gridSize)));
+                Debug.DrawLine(new Vector2(xOffset + (k * gridSize), yOffset), new Vector2(xOffset + (k * gridSize), yOffset + (sizeY * gridSize)));
 
                 //Debug.DrawLine(new Vector2(transform.position.x , transform.position.y + i), new Vector2(transform.position.x + cols, transform.position.y + i));
                 //Debug.DrawLine(new Vector2(transform.position.x + k, transform.position.y), new Vector2(transform.position.x + k, transform.position.y + rows));

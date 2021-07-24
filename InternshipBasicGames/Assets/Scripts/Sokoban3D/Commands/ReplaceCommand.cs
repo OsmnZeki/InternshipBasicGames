@@ -16,12 +16,12 @@ namespace Sokoban3D
             this.currentGrid = currentGrid;
         }
 
-        public void execute()
+        public void Execute()
         {
             moveableObjects.NextMoveOnGridSystem(placedGrid);
         }
 
-        public void undo()
+        public void Undo()
         {
             moveableObjects.UndoTheMove(currentGrid);
         }

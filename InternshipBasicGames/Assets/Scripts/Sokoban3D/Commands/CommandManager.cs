@@ -35,7 +35,7 @@ namespace Sokoban3D
                 for (int i = 0; i < thisTurnCommand.Count; i++)
                 {
                     pastCommands.Add(thisTurnCommand[i]);
-                    thisTurnCommand[i].execute();
+                    thisTurnCommand[i].Execute();
                 }
             }
 
@@ -49,7 +49,7 @@ namespace Sokoban3D
                 for (int k = numberOfObjects[numberOfObjects.Count - 1]; k > 0; k--)
                 {
 
-                    pastCommands[pastCommands.Count - 1].undo();
+                    pastCommands[pastCommands.Count - 1].Undo();
                     pastCommands.RemoveAt(pastCommands.Count - 1);
 
                 }

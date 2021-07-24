@@ -13,12 +13,12 @@ namespace Sokoban3D
             this.shotCommand = shotCommand;
         }
 
-        public void execute()
+        public void Execute()
         {
             shotCommand.ShootTheBullet();
         }
 
-        public void undo()
+        public void Undo()
         {
             shotCommand.RemoveTheBullet();
         }

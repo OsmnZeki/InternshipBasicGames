@@ -6,9 +6,10 @@ namespace Sokoban3D
 {
     public interface ICommand
     {
-        void execute();
+        // TODO Execute Undo ++
+        void Execute();
 
-        void undo();
+        void Undo();
     }
 }
 

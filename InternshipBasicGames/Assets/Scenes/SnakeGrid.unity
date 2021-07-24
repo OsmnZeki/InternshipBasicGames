@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2b43c793218c547abeddbc783c5a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 10
-  cols: 10
+  sizeY: 10
+  sizeX: 10
   gridSize: 1
 --- !u!4 &501487161
 Transform:
@@ -237,15 +237,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd85251a17b2ad4fb70460edc678a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: {x: 0, y: 5}
   nextGrid:
     worldPosition: {x: 0, y: 0}
-    gridPosition: {x: 0, y: 0}
     placedObj: {fileID: 0}
     placedObjTag: 
   direction: {x: 1, y: 0}
   speed: 5
   timeToStep: 0
+  myGridSystem: {fileID: 501487160}
   mySnake: []
   snakeListIterator: 0
   snakeTailPrefab: {fileID: 2673746792342422203, guid: 68a4a31d179441b4583e4e9e10374493,
@@ -268,7 +267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550159275}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9541819, y: 0.63257146, z: 67.41797}
+  m_LocalPosition: {x: -0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

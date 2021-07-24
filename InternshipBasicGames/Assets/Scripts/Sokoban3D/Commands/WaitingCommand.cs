@@ -13,12 +13,12 @@ namespace Sokoban3D
             moveableObjects = obj;
         }
 
-        public void execute()
+        public void Execute()
         {
             moveableObjects.Waiting();
         }
 
-        public void undo()
+        public void Undo()
         {
             moveableObjects.Waiting();
         }

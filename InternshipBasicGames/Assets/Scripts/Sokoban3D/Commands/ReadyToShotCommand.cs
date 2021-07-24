@@ -17,12 +17,12 @@ namespace Sokoban3D
             nextCounter = next;
         }
 
-        public void execute()
+        public void Execute()
         {
             turret.ReadyToShoot(nextCounter);
         }
 
-        public void undo()
+        public void Undo()
         {
             turret.ReadyToShoot(currentCounter);
         }
