@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Leopotam.Ecs;
 
 namespace SpaceRaceECS
 {
@@ -11,6 +12,7 @@ namespace SpaceRaceECS
         [Range(1, 5)] public float generateIntervalTime;
         public GameObject debrisPrefab;
         public float debrisSpeed;
+        public Stack<EcsEntity> debrisEntityStack = new Stack<EcsEntity>();
     }
 
 }

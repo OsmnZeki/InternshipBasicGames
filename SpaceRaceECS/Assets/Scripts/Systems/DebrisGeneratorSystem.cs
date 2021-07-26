@@ -12,36 +12,41 @@ namespace SpaceRaceECS
         private EcsWorld ecsWorld;
         private GameData gameData;
         private DebrisGeneratorConfiguration debrisGenConfig;
-        private Stack<EcsEntity> debrisStack = new Stack<EcsEntity>();//TODO: ortak bir scripte yerleþtir
 
 
         float timer;
         public void Init()
         {
-
-
             debrisGenConfig = gameData.debrisGeneratorConfig;
             timer = Random.Range(0, debrisGenConfig.generateIntervalTime);
         }
 
         public void Run()
         {
-            
+
             timer -= Time.deltaTime;
             if (timer < 0)
             {
                 int randBirthNumber = Random.Range(1, debrisGenConfig.maxBirth1Generate);
                 while (randBirthNumber > 0)
                 {
-                    Debug.Log("1");
-                    if (debrisStack.Count == 0)
+                    if (debrisGenConfig.debrisEntityStack.Count == 0)
                     {
-                        
-                        CreateDebrisEntity();
+                        var debrisGo = Object.Instantiate(debrisGenConfig.debrisPrefab, gameData.sceneData.debrisGenerator);
+
+                        var debrisEntity = ecsWorld.NewEntity();
+                        ConfigureDebrisEntity(debrisEntity, debrisGo);
                     }
                     else
                     {
-                        //TODO: stackteki entityleri sahneye yerleþtir
+                        var debrisEntity = debrisGenConfig.debrisEntityStack.Pop();
+
+                        ref var debrisComponent = ref debrisEntity.Get<DebrisComponent>();
+                        ref var movementComponent = ref debrisEntity.Get<MovementComponent>();
+                        ref var worldObjectComponent = ref debrisEntity.Get<WorldObjectComponent>();
+
+                        ConfigureDebrisEntity(debrisEntity, debrisComponent.debrisGo);
+                        debrisComponent.debrisGo.SetActive(true);
                     }
 
 
@@ -52,26 +57,14 @@ namespace SpaceRaceECS
             }
         }
 
-        public void CreateDebrisEntity()
+        public void ConfigureDebrisEntity(EcsEntity debrisEntity, GameObject debrisGo)
         {
-
-            var debrisGO = Object.Instantiate(debrisGenConfig.debrisPrefab);
-
-            var debrisEntity = ecsWorld.NewEntity();
-
             ref var debrisComponent = ref debrisEntity.Get<DebrisComponent>();
             ref var movementComponent = ref debrisEntity.Get<MovementComponent>();
             ref var worldObjectComponent = ref debrisEntity.Get<WorldObjectComponent>();
 
-            ConfigureDebris(ref movementComponent, ref worldObjectComponent, debrisGO);
+            debrisComponent.debrisGo = debrisGo;
 
-
-            debrisComponent.destroyPMaxX = gameData.gameAreaMax.x + .5f;
-            debrisComponent.destroyPMinX = gameData.gameAreaMin.x - .5f;
-        }
-
-        public void ConfigureDebris(ref MovementComponent movementComponent, ref WorldObjectComponent worldObjectComponent, GameObject debrisGO)
-        {
             Vector2 initialPoint;
 
             if (Random.value < 0.5f) //left
@@ -84,12 +77,12 @@ namespace SpaceRaceECS
 
                 initialPoint.x = gameData.gameAreaMax.x;
                 movementComponent.direction = new Vector2(-1, 0);
-
             }
-            initialPoint.y = Random.Range(gameData.gameAreaMin.y, gameData.gameAreaMax.y);
-            debrisGO.transform.position = initialPoint;
-            worldObjectComponent.transform = debrisGO.transform;
 
+            movementComponent.speed = debrisGenConfig.debrisSpeed;
+            initialPoint.y = Random.Range(gameData.gameAreaMin.y+2, gameData.gameAreaMax.y);
+            debrisGo.transform.position = initialPoint;
+            worldObjectComponent.transform = debrisGo.transform;
         }
 
 

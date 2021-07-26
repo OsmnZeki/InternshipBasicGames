@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public struct DebrisComponent
+using Leopotam.Ecs;
+namespace SpaceRaceECS
 {
-    public float destroyPMinX, destroyPMaxX;
+    public struct DebrisComponent 
+    {
+        public GameObject debrisGo;
+    }
 }
+

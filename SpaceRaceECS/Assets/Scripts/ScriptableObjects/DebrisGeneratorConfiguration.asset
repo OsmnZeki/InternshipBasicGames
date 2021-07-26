@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85d8ec1c8f624143b8a8687abeb8d78, type: 3}
   m_Name: DebrisGeneratorConfiguration
   m_EditorClassIdentifier: 
-  maxBirth1Generate: 2
-  generateIntervalTime: 2
+  maxBirth1Generate: 1
+  generateIntervalTime: 1
   debrisPrefab: {fileID: 1035502271868035916, guid: 09982e173e0a0fd48b705e36642093d1, type: 3}
   debrisSpeed: 3

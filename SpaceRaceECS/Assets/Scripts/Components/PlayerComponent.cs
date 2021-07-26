@@ -7,7 +7,6 @@ namespace SpaceRaceECS
 {
     public struct PlayerComponent
     {
-        public BoxCollider2D playerCollider;
         public Vector2 startPoint;
         public int score;
         public TextMeshProUGUI scoreText;

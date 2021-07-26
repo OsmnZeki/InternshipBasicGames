@@ -28,8 +28,9 @@ namespace SpaceRaceECS
             ref var movementComponent = ref playerEntity.Get<MovementComponent>();
 
             worldObjectComponent.transform = player.transform;
+            player.GetComponent<CollisionViewer>().ecsWorld = ecsWorld;
+            player.GetComponent<CollisionViewer>().objEntity = playerEntity;
             playerComponent.startPoint = player.transform.position;
-            playerComponent.playerCollider = player.GetComponent<BoxCollider2D>();
             playerComponent.playerNumber = playerNumber;
             movementComponent.speed = gameData.playerMovementConfig.movementSpeed;
 

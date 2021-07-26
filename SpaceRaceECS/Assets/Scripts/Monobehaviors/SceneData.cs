@@ -10,4 +10,6 @@ public class SceneData : MonoBehaviour
 
     public GameObject player2;
     public TextMeshProUGUI player2ScoreText;
+
+    public Transform debrisGenerator;
 }
